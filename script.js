@@ -1,86 +1,89 @@
-// DOM elements
-const levelSelect = document.getElementById("level");
-const timeDisplay = document.getElementById("time");
-const questionDisplay = document.getElementById("question");
-const answerInput = document.getElementById("answer");
-const scoreDisplay = document.getElementById("score");
-const restartBtn = document.getElementById("restart");
-
+let num1, num2, operator, correctAnswer;
 let score = 0;
-let time = 10;
-let correctAnswer = 0;
-let timer;
+let timeLeft = 30;
+let timerInterval;
 
-// Start the game immediately
-startGame();
+const answerInput = document.getElementById("answer");
+const feedback = document.getElementById("feedback");
+const scoreDisplay = document.getElementById("score");
+const timeDisplay = document.getElementById("time");
+const restartBtn = document.getElementById("restart");
+const correctSound = document.getElementById("correctSound");
+const wrongSound = document.getElementById("wrongSound");
+const questionDisplay = document.getElementById("question");
 
-// Generate random number based on level
-function getNumber(level) {
+function generateNumber(level) {
     if (level === "easy") return Math.floor(Math.random() * 10) + 1;
-    if (level === "medium") return Math.floor(Math.random() * 50) + 1;
-    if (level === "hard") return Math.floor(Math.random() * 100) + 1;
+    if (level === "medium") return Math.floor(Math.random() * 25) + 1;
+    return Math.floor(Math.random() * 50) + 1;
 }
 
-// Generate new question
-function newQuestion() {
-    const level = levelSelect.value;
-    const num1 = getNumber(level);
-    const num2 = getNumber(level);
-
-    const operators = ["+", "-", "*"];
-    const operator = operators[Math.floor(Math.random() * operators.length)];
-
-    questionDisplay.textContent = ${num1} ${operator} = ?;
-
-    // Calculate correct answer
-    if (operator === "+") correctAnswer = num1 + num2;
-    if (operator === "-") correctAnswer = num1 - num2;
-    if (operator === "*") correctAnswer = num1 * num2;
-}
-
-// Start timer
 function startTimer() {
-    time = 10;
-    timeDisplay.textContent = time;
+    clearInterval(timerInterval);
+    timeLeft = 30;
+    timeDisplay.textContent = timeLeft;
 
-    timer = setInterval(() => {
-        time--;
-        timeDisplay.textContent = time;
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        timeDisplay.textContent = timeLeft;
 
-        if (time <= 0) {
-            clearInterval(timer);
-            alert("Time’s up!");
-            startGame();
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            feedback.textContent = `⏳ Time's up! Correct answer: ${correctAnswer}`;
+            generateQuestion();
         }
     }, 1000);
 }
 
-// Start or restart the game
-function startGame() {
-    score = 0;
-    scoreDisplay.textContent = score;
-    answerInput.value = "";
-    answerInput.focus();
+function generateQuestion() {
+    const level = document.getElementById("level").value;
 
-    newQuestion();
-    clearInterval(timer);
+    num1 = generateNumber(level);
+    num2 = generateNumber(level);
+
+    const operators = ["+", "-", "×"];
+    operator = operators[Math.floor(Math.random() * operators.length)];
+
+    if (operator === "+") correctAnswer = num1 + num2;
+    if (operator === "-") correctAnswer = num1 - num2;
+    if (operator === "×") correctAnswer = num1 * num2;
+
+    questionDisplay.textContent = `${num1} ${operator} ${num2} = ?`;
+    answerInput.value = "";
+    feedback.textContent = "";
     startTimer();
 }
 
-// Check answer on Enter key
-answerInput.addEventListener("keypress", function (e) {
-    if (e.key === "Enter") {
-        const userAnswer = Number(answerInput.value);
+function checkAnswer() {
+    const userAns = Number(answerInput.value);
 
-        if (userAnswer === correctAnswer) {
-            score++;
-            scoreDisplay.textContent = score;
-        }
+    if (userAns === correctAnswer) {
+        feedback.textContent = "✅ Correct!";
+        score++;
+        correctSound.play();
+    } else {
+        feedback.textContent = `❌ Wrong! Correct answer: ${correctAnswer}`;
+        wrongSound.play();
+    }
 
-        answerInput.value = "";
-        newQuestion();
+    scoreDisplay.textContent = score;
+    generateQuestion();
+}
+
+// Enter key submits answer
+answerInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        checkAnswer();
     }
 });
 
 // Restart button
-restartBtn.addEventListener("click", startGame);
+restartBtn.addEventListener("click", function() {
+    clearInterval(timerInterval);
+    score = 0;
+    scoreDisplay.textContent = score;
+    generateQuestion();
+});
+
+// Initialize first question
+generateQuestion();
