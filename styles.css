@@ -1,11 +1,30 @@
+/* Body with background image and overlay */
 body {
     font-family: "Poppins", Arial, sans-serif;
-    background: #eef0f4;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    
+    /* Background image */
+    background-image: url('https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX20357594.jpg'); /* Replace with your image URL or local file */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+/* Semi-transparent overlay for readability */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4); /* dark overlay with 40% opacity */
+    z-index: -1;
 }
 
 .container {
@@ -14,13 +33,15 @@ body {
 
 h1 {
     margin-bottom: 20px;
+    color: #fff; /* Make title readable */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 
 .card {
-    background: white;
+    background: rgba(255, 255, 255, 0.95); /* slightly transparent white */
     padding: 25px 30px;
     border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     width: 350px;
 }
 
@@ -28,6 +49,7 @@ h1 {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
+    color: #333;
 }
 
 select, input {
@@ -52,12 +74,14 @@ input[type=number] {
 .info, .score {
     font-size: 18px;
     margin: 8px 0;
+    color: #333;
 }
 
 .question {
     font-size: 28px;
     font-weight: bold;
     margin: 15px 0;
+    color: #111;
 }
 
 .feedback {
