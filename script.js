@@ -73,6 +73,15 @@ function generateQuestion() {
     feedback.textContent = "";
     startTimer();
     answerInput.focus();
+
+    // Update current level text
+    document.getElementById("currentLevel").textContent = 
+    `Level: ${level.charAt(0).toUpperCase() + level.slice(1)}`;
+
+    // Update progress bar
+    const progressPercent = (levelCounters[level] / levelLimits[level]) * 100;
+    document.getElementById("progressBar").style.width = `${progressPercent}%`;
+
 }
 
 // Check user's answer
