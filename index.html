@@ -18,6 +18,8 @@
                 <option value="hard">Hard (1–100)</option>
             </select>
 
+            <!-- Level display -->
+            <p class="level" id="currentLevel">Level: Easy</p>
             <p class="info">⏳ Time: <span id="time">30</span></p>
             <p class="question" id="question">Loading...</p>
 
@@ -26,6 +28,11 @@
             <p class="feedback" id="feedback"></p>
             <p class="score">⭐ Score: <span id="score">0</span></p>
 
+             <!-- Progress bar -->
+            <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
             <button id="restart">Restart</button>
         </div>
     </div>
