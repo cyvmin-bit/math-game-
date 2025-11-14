@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Math Quiz Game</title>
+</head>
+<body>
+    <div class="container">
+        <h1>🧮 Math Quiz Game</h1>
+
+        <div class="card">
+            <label class="label">Select Level</label>
+            <select id="level">
+                <option value="easy">Easy (1–10)</option>
+                <option value="medium">Medium (1–50)</option>
+                <option value="hard">Hard (1–100)</option>
+            </select>
+
+            <p class="info">⏳ Time: <span id="time">1</span></p>
+            <p class="question" id="question">9 - 8 = ?</p>
+
+            <input type="number" id="answer" placeholder="Your answer">
+
+            <p class="score">⭐ Score: <span id="score">0</span></p>
+
+            <button id="restart">Restart</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
