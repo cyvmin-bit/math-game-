@@ -14,20 +14,25 @@
             <label class="label">Select Level</label>
             <select id="level">
                 <option value="easy">Easy (1–10)</option>
-                <option value="medium">Medium (1–50)</option>
-                <option value="hard">Hard (1–100)</option>
+                <option value="medium">Medium (1–25)</option>
+                <option value="hard">Hard (1–50)</option>
             </select>
 
-            <p class="info">⏳ Time: <span id="time">1</span></p>
-            <p class="question" id="question">9 - 8 = ?</p>
+            <p class="info">⏳ Time: <span id="time">30</span></p>
+            <p class="question" id="question">Loading...</p>
 
             <input type="number" id="answer" placeholder="Your answer">
 
+            <p class="feedback" id="feedback"></p>
             <p class="score">⭐ Score: <span id="score">0</span></p>
 
             <button id="restart">Restart</button>
         </div>
     </div>
+
+    <!-- Sound effects -->
+    <audio id="correctSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3"></audio>
+    <audio id="wrongSound" src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3"></audio>
 
     <script src="script.js"></script>
 </body>
